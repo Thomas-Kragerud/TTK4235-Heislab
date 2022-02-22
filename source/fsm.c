@@ -27,7 +27,7 @@ int fsm_get_next_stop(int floor_indicator){
     if(current_direction == DIRECTION_UP) {
         for (int i = floor_indicator; i < NUMBER_OF_FLOORS; ++i) {
             for (int j = 0; j < NUMBER_OF_BUTTONS; ++j) {
-                if (queue[i][j] = 1 && i > floor_indicator && (abs(i-floor_indicator) < (next_stop-floor_indicator))) {
+                if (queue[i][j] == 1 && i > floor_indicator && (abs(i-floor_indicator) < (next_stop-floor_indicator))) {
                     next_stop = i;
                 }
             }
@@ -37,7 +37,7 @@ int fsm_get_next_stop(int floor_indicator){
     if(current_direction == DIRECTION_DOWN) {
         for (int i = 0; i < floor_indicator; ++i) {
             for (int j = 0; j < NUMBER_OF_BUTTONS; ++j) {
-                if (queue[i][j] = 1 && i < floor_indicator && (abs(i-floor_indicator) < (next_stop-floor_indicator))) {
+                if (queue[i][j] == 1 && i < floor_indicator && (abs(i-floor_indicator) < (next_stop-floor_indicator))) {
                     next_stop = i;
                 }
             }
@@ -48,6 +48,11 @@ int fsm_get_next_stop(int floor_indicator){
 }
 
 void fsm_go_to(int next_stop, int floor_indicator) {
+    if (next_stop > floor_indicator) {
+        elevio_motorDirection(DIRN_UP);
+    } else {
+        elevio_motorDirection(DIRN_STOP);
+    }
 }
 
 
@@ -70,9 +75,12 @@ void fsm_run(){
             current_direction = DIRECTION_UP;
         }
 
+        /**
         case(IDLE):
         queue_update_queue();
-        fsm_go_to(fsm_get_next_stop(fsm_get_floor_indicator(current_position)));
+        int floor_indicator = fsm_get_floor_indicator(current_position);
+        fsm_go_to(fsm_get_next_stop(floor_indicator), floor_indicator);
+        **/
     }
 
 }
