@@ -22,6 +22,6 @@ void fsm_update_light(int floor_indicator);
 
 int fsm_get_next_stop(int floor_indicator);
 
-void fsm_go_to(int next_stop);
+void fsm_go_to(int next_stop, int floor_indicator);
 
 void fsm_run();

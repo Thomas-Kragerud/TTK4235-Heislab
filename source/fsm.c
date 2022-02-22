@@ -47,8 +47,7 @@ int fsm_get_next_stop(int floor_indicator){
     return next_stop;
 }
 
-void fsm_go_to(int next_stop) {
-    
+void fsm_go_to(int next_stop, int floor_indicator) {
 }
 
 
@@ -74,7 +73,6 @@ void fsm_run(){
         case(IDLE):
         queue_update_queue();
         fsm_go_to(fsm_get_next_stop(fsm_get_floor_indicator(current_position)));
-
     }
 
 }
