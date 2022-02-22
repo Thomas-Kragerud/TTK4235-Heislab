@@ -75,13 +75,11 @@ void fsm_run(){
             current_direction = DIRECTION_UP;
         }
 
-        /**
+        
         case(IDLE):
         queue_update_queue();
         int floor_indicator = fsm_get_floor_indicator(current_position);
         fsm_go_to(fsm_get_next_stop(floor_indicator), floor_indicator);
-        **/
     }
 
 }
-/**jfndjkdjkgdfkl**/
