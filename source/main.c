@@ -12,12 +12,13 @@
 int main(){
     elevio_init();
     time_countdown(3);
+    
+    queue_initialize_queue();
 
     while(1){
 
         fsm_run();
         
     }
-
     return 0;
 }

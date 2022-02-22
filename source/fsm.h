@@ -16,12 +16,42 @@ extern direction current_direction;
 
 extern direction previous_direction;
 
+/**
+ * @brief Function that return the last passed floor
+ * 
+ * @param current_position Position of elevator (-1 between floors)
+ * @return int 
+ */
 int fsm_get_floor_indicator(int current_position);
 
+/**
+ * @brief Updates floor indicator light at panel
+ * 
+ * @param floor_indicator 
+ */
 void fsm_update_light(int floor_indicator);
 
+/**
+ * @brief Function that calculates the next floor
+ * 
+ * @param floor_indicator 
+ * @return int 
+ */
 int fsm_get_next_stop(int floor_indicator);
 
+/**
+ * @brief Elevator goes to floor and stops
+ * 
+ * @param next_stop 
+ * @param floor_indicator 
+ */
 void fsm_go_to(int next_stop, int floor_indicator);
 
+
+void fsm_clear_orders_on_floor(int floor);
+
+/**
+ * @brief Runs the whole elevator
+ * 
+ */
 void fsm_run();

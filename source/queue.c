@@ -19,7 +19,9 @@ void queue_update_queue() {
     for(int f = 0; f < NUMBER_OF_FLOORS; ++f) {
         for(int b = 0; b < NUMBER_OF_BUTTONS; ++b) {
             int btnPressed = elevio_callButton(f,b);
-            queue[f][b] = btnPressed;
+            if(btnPressed == 1) {
+                queue[f][b] = btnPressed;
+            }
         }
     }
 }
