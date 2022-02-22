@@ -18,10 +18,46 @@ void queue_initialize_queue() {
 void queue_update_queue() {
     for(int f = 0; f < NUMBER_OF_FLOORS; ++f) {
         for(int b = 0; b < NUMBER_OF_BUTTONS; ++b) {
-            int btnPressed = elevio_callButton(f,b);
+            int btnPressed = elevio_callButton(f,b);//f is floor and b is buttontype [up, down, hb]
             if(btnPressed == 1) {
                 queue[f][b] = btnPressed;
             }
         }
     }
+}
+
+
+
+int que_not_empty(){
+    for(int f = 0; f < NUMBER_OF_FLOORS; ++f){
+        for(int b = 0; b < NUMBER_OF_BUTTONS; ++b){
+            if(queue[f][b] != 0){
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+
+
+
+
+
+
+//Helper functions implementation 
+
+void queue_clear_row(int row){
+    for(int b = 0; b < NUMBER_OF_BUTTONS; ++b){
+        queue[row][b] = 0;
+    }
+}
+
+
+void queue_clear_all(){
+    queue_initialize_queue(); // heftig unødvendig :))
+}
+
+void queue_init_movement_room(){
+    
 }

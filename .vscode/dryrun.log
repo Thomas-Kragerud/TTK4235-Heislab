@@ -1,0 +1,8 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory '/home/student/Documents/Gruppe58/TTK4235-Heislab'
+ 
+mkdir -p build
+clang -o build/fsm.o -c -Wall -g -std=gnu11 -fsanitize=address source/fsm.c
+clang build/demo_util.o build/driver/elevio.o build/main.o build/queue.o build/util.o build/fsm.o build/timer.o -o elevator -fsanitize=address
+make: Leaving directory '/home/student/Documents/Gruppe58/TTK4235-Heislab'
+ 
