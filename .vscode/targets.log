@@ -1,0 +1,531 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 4.2.1
+# Built for x86_64-pc-linux-gnu
+# Copyright (C) 1988-2016 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+
+# Make data base, printed on Tue Feb 22 21:08:56 2022
+
+# Variables
+
+# 'override' directive
+GNUMAKEFLAGS := 
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# automatic
+?F = $(notdir $?)
+# environment
+PAPERSIZE = a4
+# environment
+DESKTOP_SESSION = ubuntu
+# default
+.SHELLFLAGS := -c
+# environment
+XDG_SESSION_CLASS = user
+# environment
+SNAP_COMMON = /var/snap/code/common
+# environment
+XDG_SESSION_TYPE = x11
+# environment
+VSCODE_LOG_NATIVE = false
+ 
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# environment
+IM_CONFIG_PHASE = 1
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# environment
+XAUTHORITY = /run/user/1001/gdm/Xauthority
+# environment
+GDMSESSION = ubuntu
+# environment
+XMODIFIERS = @im=ibus
+# makefile
+CURDIR := /home/student/Documents/Gruppe58/TTK4235-Heislab
+# makefile
+SHELL = /bin/sh
+# environment
+SNAP_DATA = /var/snap/code/88
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+# environment
+JOURNAL_STREAM = 8:50349
+# makefile (from 'Makefile', line 5)
+CFLAGS = -Wall -g -std=gnu11 -fsanitize=address
+# environment
+XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
+# environment
+SNAP_INSTANCE_NAME = code
+# environment
+SNAP_ARCH = amd64
+# makefile (from 'Makefile', line 1)
+MAKEFILE_LIST :=  Makefile
+# automatic
+@F = $(notdir $@)
+# environment
+GIO_LAUNCHED_DESKTOP_FILE = /var/lib/snapd/desktop/applications/code_code.desktop
+# environment
+USERNAME = student
+# makefile (from 'Makefile', line 13)
+SOURCES :=  demo_util.c  driver/elevio.c  main.c  queue.c  util.c  fsm.c  timer.c
+# environment
+MAKELEVEL := 0
+# environment
+XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
+# environment
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1001/bus
+# environment
+VSCODE_VERBOSE_LOGGING = true
+# environment
+_ = /snap/code/88/usr/share/code/code
+# 'override' directive
+.SHELLSTATUS := 0
+# environment
+MANAGERPID = 1697
+# environment
+LESSOPEN = | /usr/bin/lesspipe %s
+# environment
+LC_NAME = nb_NO.UTF-8
+# environment
+VSCODE_CWD = /home/student
+# environment
+GSETTINGS_SCHEMA_DIR = /snap/code/88/usr/share/glib-2.0/schemas
+# default
+MAKE_HOST := x86_64-pc-linux-gnu
+# environment
+PATH = /home/student/.local/bin:/home/student/.cargo/bin:/home/student/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:/usr/local/elevator:/usr/local/go/bin:/usr/local/elevator
+# environment
+GPG_AGENT_INFO = /run/user/1001/gnupg/S.gpg-agent:0:1
+# environment
+SESSION_MANAGER = local/drift-OptiPlex-7070:@/tmp/.ICE-unix/1937,unix/drift-OptiPlex-7070:/tmp/.ICE-unix/1937
+# environment
+XDG_RUNTIME_DIR = /run/user/1001
+# environment
+GDK_PIXBUF_MODULE_FILE = /home/student/snap/code/common/.cache/gdk-pixbuf-loaders.cache
+# environment
+SNAP = /snap/code/88
+# environment
+SNAP_VERSION = f80445ac
+# environment
+XDG_MENU_PREFIX = gnome-
+# environment
+VSCODE_LOG_STACK = false
+# environment
+DISABLE_WAYLAND = 1
+# environment
+VSCODE_CRASH_REPORTER_START_OPTIONS = {"companyName":"Microsoft","productName":"VSCode","submitURL":"appcenter://code?aid=fba07a4d-84bd-4fc8-a125-9640fc8ce171&uid=a7897495-3090-4847-be38-a5ebb50da448&iid=a7897495-3090-4847-be38-a5ebb50da448&sid=a7897495-3090-4847-be38-a5ebb50da448","uploadToServer":true}
+# environment
+INVOCATION_ID = 73e98a06ba764517bea6a39b286bddc3
+# makefile (from 'Makefile', line 6)
+LDFLAGS = -fsanitize=address
+# environment
+GDK_PIXBUF_MODULEDIR = /snap/code/88/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
+# environment
+LS_COLORS = 
+# environment
+XDG_SESSION_DESKTOP = ubuntu
+# environment
+SSH_AUTH_SOCK = /run/user/1001/keyring/ssh
+# environment
+GIO_LAUNCHED_DESKTOP_FILE_PID = 22780
+# automatic
+%F = $(notdir $%)
+# environment
+DISPLAY = :0
+# environment
+VSCODE_PIPE_LOGGING = true
+# environment
+SNAP_INSTANCE_KEY = 
+# environment
+PWD = /home/student/Documents/Gruppe58/TTK4235-Heislab
+# default
+.LOADED := 
+# environment
+SSH_AGENT_PID = 1899
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
+# environment
+GTK_MODULES = gail:atk-bridge
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/services/extensions/node/extensionHostProcess
+# environment
+HOME = /home/student
+# environment
+LESSCLOSE = /usr/bin/lesspipe %s %s
+# environment
+VSCODE_CLI = 1
+# environment
+VSCODE_CODE_CACHE_PATH = /home/student/.config/Code/CachedData/f80445acd5a3dadef24aa209168452a3d97cc326
+# environment
+LOGNAME = student
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+# environment
+SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd/void
+# environment
+SNAP_CONTEXT = YhPNE_WteWkktHJEKPoPZ2VzV_8-lntFzWtezBoQyFS-QG5TKJ5M
+# automatic
++F = $(notdir $+)
+# environment
+ELECTRON_NO_ATTACH_CONSOLE = 1
+# environment
+SNAP_USER_COMMON = /home/student/snap/code/common
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# environment
+GNOME_DESKTOP_SESSION_ID = this-is-deprecated
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+LC_TIME = nb_NO.UTF-8
+# environment
+SNAP_REAL_HOME = /home/student
+# default
+MAKE = $(MAKE_COMMAND)
+# default
+MAKECMDGOALS := all
+# environment
+QT_IM_MODULE = ibus
+# environment
+SNAP_USER_DATA = /home/student/snap/code/88
+# environment
+SHLVL = 0
+# environment
+GNOME_SHELL_SESSION_MODE = ubuntu
+# environment
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1001/vscode-ipc-7d28bac9-5427-4d9f-8def-e8872efb73dd.sock
+# default
+MAKE_VERSION := 4.2.1
+# environment
+USER = student
+# environment
+SNAP_REVISION = 88
+# environment
+LC_MONETARY = nb_NO.UTF-8
+# makefile
+.DEFAULT_GOAL := all
+# environment
+XDG_CURRENT_DESKTOP = Unity
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# environment
+LC_TELEPHONE = nb_NO.UTF-8
+# default
+MAKE_COMMAND := make
+# default
+.VARIABLES := 
+# automatic
+*F = $(notdir $*)
+# environment
+LANGUAGE = en_US:en
+# environment
+VSCODE_IPC_HOOK = /run/user/1001/vscode-62ee4e9e-1.64.2-main.sock
+# environment
+BAMF_DESKTOP_FILE_HINT = /var/lib/snapd/desktop/applications/code_code.desktop
+# makefile
+MAKEFLAGS = pqrR
+# environment
+MFLAGS = -pqrR
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# environment
+BREAKPAD_DUMP_LOCATION = /home/student/.config/Code/exthost Crash Reports
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# environment
+GDK_BACKEND = x11
+# environment
+LC_PAPER = nb_NO.UTF-8
+# environment
+LC_IDENTIFICATION = nb_NO.UTF-8
+# environment
+QT_ACCESSIBILITY = 1
+# makefile (from 'Makefile', line 4)
+COMPILER = clang
+# default
+MAKEFILES := 
+# environment
+SNAP_COOKIE = YhPNE_WteWkktHJEKPoPZ2VzV_8-lntFzWtezBoQyFS-QG5TKJ5M
+# environment
+LC_NUMERIC = nb_NO.UTF-8
+# automatic
+<F = $(notdir $<)
+# makefile (from 'Makefile', line 2)
+EXECUTABLE = elevator
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# makefile (from 'Makefile', line 7)
+EXCLUDE = '*test*'
+# environment
+LC_MEASUREMENT = nb_NO.UTF-8
+# environment
+SNAP_NAME = code
+# environment
+LC_ALL = C
+# environment
+GJS_DEBUG_TOPICS = JS ERROR;JS LOG
+# makefile (from 'Makefile', line 11)
+OBJECTDIR = build
+# automatic
+^F = $(notdir $^)
+# default
+SUFFIXES := 
+# environment
+SNAP_REEXEC = 
+# environment
+CHROME_DESKTOP = code-url-handler.desktop
+# environment
+WINDOWPATH = 2
+# default
+.INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
+# environment
+GJS_DEBUG_OUTPUT = stderr
+# default
+.RECIPEPREFIX := 
+# makefile (from 'Makefile', line 14)
+OBJECTS = $(addprefix $(OBJECTDIR)/, $(SOURCES:.c=.o))
+# environment
+LC_ADDRESS = nb_NO.UTF-8
+# environment
+LANG = C
+# makefile (from 'Makefile', line 10)
+SOURCEDIR = source
+# environment
+VSCODE_PID = 22826
+# variable set hash-table stats:
+# Load=143/1024=14%, Rehash=0, Collisions=25/188=13%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# source (device 66308, inode 2627304): 10 files, no impossibilities so far.
+# source/driver (device 66308, inode 2755787): 3 files, no impossibilities so far.
+# . (device 66308, inode 1707798): 12 files, no impossibilities.
+
+# 25 files, no impossibilities in 3 directories.
+
+# Implicit Rules
+
+build/%.o: source/%.c
+#  recipe to execute (from 'Makefile', line 30):
+	@mkdir -p $(@D)
+	$(COMPILER) -o $@ -c $(CFLAGS) $<
+	
+
+# 1 implicit rules, 0 (0.0%) terminal.
+
+# Files
+
+build/demo_util.o: source/demo_util.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'demo_util'
+#  Last modified 2022-02-22 20:45:52.669985327
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 30):
+	@mkdir -p $(@D)
+	$(COMPILER) -o $@ -c $(CFLAGS) $<
+	
+
+# Not a target:
+source/demo_util.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-02-22 20:43:20.200987297
+#  File has been updated.
+#  Successfully updated.
+
+build/main.o: source/main.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'main'
+#  Last modified 2022-02-22 20:45:52.777986034
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 30):
+	@mkdir -p $(@D)
+	$(COMPILER) -o $@ -c $(CFLAGS) $<
+	
+
+# Not a target:
+source/main.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-02-22 20:43:20.200987297
+#  File has been updated.
+#  Successfully updated.
+
+build/fsm.o: source/fsm.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'fsm'
+#  Last modified 2022-02-22 21:06:40.365601071
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := build/fsm.o
+# automatic
+# % := 
+# automatic
+# * := fsm
+# automatic
+# + := source/fsm.c
+# automatic
+# | := 
+# automatic
+# < := source/fsm.c
+# automatic
+# ^ := source/fsm.c
+# automatic
+ 
+# ? := source/fsm.c
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=1/17=6%
+#  recipe to execute (from 'Makefile', line 30):
+	@mkdir -p $(@D)
+	$(COMPILER) -o $@ -c $(CFLAGS) $<
+	
+
+# Not a target:
+source/fsm.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-02-22 21:07:56.762083905
+#  File has been updated.
+#  Successfully updated.
+
+all: elevator
+#  Phony target (prerequisite of .PHONY).
+#  Command line target.
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/6=0%
+
+.PHONY: all rebuild clean
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  Last modified 2022-02-22 20:43:20.180987166
+#  File has been updated.
+#  Successfully updated.
+
+build/driver/elevio.o: source/driver/elevio.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'driver/elevio'
+#  Last modified 2022-02-22 20:45:52.733985745
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 30):
+	@mkdir -p $(@D)
+	$(COMPILER) -o $@ -c $(CFLAGS) $<
+	
+
+# Not a target:
+source/driver/elevio.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-02-22 20:43:20.200987297
+#  File has been updated.
+#  Successfully updated.
+
+rebuild: clean all
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 19):
+	
+
+build/queue.o: source/queue.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'queue'
+#  Last modified 2022-02-22 20:45:52.80198619
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 30):
+	@mkdir -p $(@D)
+	$(COMPILER) -o $@ -c $(CFLAGS) $<
+	
+
+# Not a target:
+source/queue.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-02-22 20:43:20.200987297
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+build/util.o: source/util.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'util'
+#  Last modified 2022-02-22 21:05:05.01700009
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 30):
+	@mkdir -p $(@D)
+	$(COMPILER) -o $@ -c $(CFLAGS) $<
+	
+
+# Not a target:
+source/util.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-02-22 21:01:00.3874689
+#  File has been updated.
+#  Successfully updated.
+
+clean:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 21):
+	rm -f $(EXECUTABLE)
+	rm -rf $(OBJECTDIR)
+
+# Not a target:
+build/timer.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+elevator: build/demo_util.o build/driver/elevio.o build/main.o build/queue.o build/util.o build/fsm.o build/timer.o
+#  Implicit rule search has not been done.
+#  Last modified 2022-02-22 21:06:40.481601803
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/6=0%
+#  recipe to execute (from 'Makefile', line 26):
+	$(COMPILER) $^ -o $@ $(LDFLAGS)
+
+# files hash-table stats:
+# Load=21/1024=2%, Rehash=0, Collisions=0/65=0%
+# VPATH Search Paths
+
+# No 'vpath' search paths.
+
+# No general ('VPATH' variable) search path.
+
+# strcache buffers: 1 (0) / strings = 52 / storage = 547 B / avg = 10 B
+# current buf: size = 8162 B / used = 547 B / count = 52 / avg = 10 B
+
+# strcache performance: lookups = 79 / hit rate = 34%
+# hash-table stats:
+# Load=52/8192=1%, Rehash=0, Collisions=3/79=4%
+# Finished Make data base on Tue Feb 22 21:08:56 2022
+
+ 

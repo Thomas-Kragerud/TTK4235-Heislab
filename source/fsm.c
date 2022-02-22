@@ -9,6 +9,35 @@ direction previous_direction = DIRECTION_DOWN;
 
 position current_position;
 
+movement movement_room;
+
+
+
+
+void fsm_init(void) {
+    if(current_position != 0) {
+            elevio_motorDirection(DIRN_DOWN);
+        } else {
+            elevio_motorDirection(DIRN_STOP);
+            current_direction = DIRECTION_UP;
+            current_state = IDLE;
+        }
+}
+
+
+void fsm_update_movement_room(){
+    for(int f = 0; f < NUMBER_OF_FLOORS; ++f){
+        for(int b = 0; b < NUMBER_OF_BUTTONS; ++b){
+            if(queue[f][b] != 0){
+
+                //if finds new entry the first time.
+                movement_room.stop = f;
+                movement_room.next_stop = f;
+                movement_room.start = current_position;
+            }
+        }
+    }
+}
 
 int fsm_get_floor_indicator(int current_position) {
     int floor_indicator = 0;
@@ -71,6 +100,7 @@ void fsm_clear_orders_on_floor(int floor) {
 
 void fsm_run(){
 
+    //Updates for every run of loop 
     current_position = elevio_floorSensor();
     fsm_update_light(fsm_get_floor_indicator(current_position));
 
@@ -78,39 +108,49 @@ void fsm_run(){
     {
 
         case(INIT):
-        if(current_position != 0) {
-            elevio_motorDirection(DIRN_DOWN);
-        } else {
-            elevio_motorDirection(DIRN_STOP);
-            current_direction = DIRECTION_UP;
-            current_state = IDLE;
-        }
-        break;
+            fsm_init();
+            break;
 
         case(IDLE):
+            queue_update_queue();
+            print_matrix(queue);
+            if(que_not_empty()){
+                current_state = MOVING;
+            }
+            /**
 
-        printf("IDLE\n");
+            int floor_indicator = fsm_get_floor_indicator(current_position);
+            int next_stop = fsm_get_next_stop(floor_indicator);
 
-        queue_update_queue();
+            fsm_go_to(next_stop, floor_indicator);
 
-        current_position = elevio_floorSensor();
-        fsm_update_light(fsm_get_floor_indicator(current_position));
+            if (next_stop == floor_indicator) {
+                elevio_motorDirection(DIRN_STOP);
+                fsm_clear_orders_on_floor(next_stop);
+                current_state = DOOR_OPEN;
+            }
+            printf("%d", next_stop);
+            printf("%d\n", floor_indicator);
+            **/
 
-        int floor_indicator = fsm_get_floor_indicator(current_position);
-        int next_stop = fsm_get_next_stop(floor_indicator);
+            break;
+        
+        case(MOVING):
+            int floor_indicator = fsm_get_floor_indicator(current_position);
+            int next_stop = fsm_get_next_stop(floor_indicator);
 
-        fsm_go_to(next_stop, floor_indicator);
+            fsm_go_to(next_stop, floor_indicator);
 
-        if (next_stop == floor_indicator) {
-            elevio_motorDirection(DIRN_STOP);
-            fsm_clear_orders_on_floor(next_stop);
-            current_state = DOOR_OPEN;
-        }
+            if (next_stop == floor_indicator) {
+                elevio_motorDirection(DIRN_STOP);
+                fsm_clear_orders_on_floor(next_stop);
+                current_state = DOOR_OPEN;
+            }
+            printf("%d", next_stop);
+            printf("%d\n", floor_indicator);
 
-        printf("%d", next_stop);
-        printf("%d\n", floor_indicator);
+            break;
 
-        break;
 
 
         case(DOOR_OPEN):
