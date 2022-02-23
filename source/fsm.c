@@ -151,6 +151,8 @@ void fsm_run()
 
     case (IDLE):
         queue_update_queue();
+        if(elevio_stopButton()){current_state = EMERGENCY_STOP;} //skrive om den her til en smud funksjon, void funksjon siden kalles ofte
+
         print_matrix(queue);
 
         if (queue_not_empty())
@@ -163,6 +165,7 @@ void fsm_run()
     case (MOVING):
 
         queue_update_queue();
+        if(elevio_stopButton()){current_state = EMERGENCY_STOP;}
         // Hvis ikke er bestemt
         if (current_direction == DIRECTION_TBT)
         {
@@ -187,19 +190,21 @@ void fsm_run()
         }
 
         fsm_go_to(next_stop);
-        
+
         break;
 
     case (DOOR_OPEN):
         queue_update_queue();
+        if(elevio_stopButton()){current_state = EMERGENCY_STOP;}
         elevio_motorDirection(DIRN_STOP);
-        elevio_stopLamp(1);
+        elevio_doorOpenLamp(1);
         printf("JEG var her");
         queue_clear_row(newest_floor_position);
+
         timer_start();
-        if(timer_times_up(3)){
+        if(timer_times_up(3) && !elevio_obstruction()){
             current_state = IDLE;
-            elevio_stopLamp(0);
+            elevio_doorOpenLamp(0);
         }
 
     
@@ -210,6 +215,25 @@ void fsm_run()
         // Vente i tre sek.
         // Slett etasen fra køeen
         // om alt er nice luk døren og kast til idel
+        break;
+    
+    case(EMERGENCY_STOP):
+        elevio_motorDirection(DIRN_STOP);
+        elevio_stopLamp(1);
+        queue_clear_all();
+        current_direction = DIRECTION_TBT;
+        if(current_position == newest_floor_position)//only true when the elevator is located in a floor
+        {
+            elevio_doorOpenLamp(1);
+            if(!elevio_stopButton()){
+                current_state = DOOR_OPEN;
+                elevio_stopLamp(0);
+            }
+        } else{
+            current_state = IDLE;
+            elevio_stopLamp(0);
+        }
+
         break;
     }
 }

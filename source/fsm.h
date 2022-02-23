@@ -65,6 +65,9 @@ void fsm_update_light();
 void fsm_go_to(int next_stop);
 
 
+//int fsm_is_emergancy();
+
+
 /**
  * @brief Runs the whole elevator
  * 

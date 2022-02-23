@@ -11,6 +11,8 @@ void queue_initialize_queue() {
     for(int i = 0; i < NUMBER_OF_FLOORS; ++i) {
         for(int j = 0; j < NUMBER_OF_BUTTONS; ++j) {
             queue[i][j] = 0;
+            elevio_buttonLamp(i, j, 0);
+            
         }
     }
 }

@@ -43,13 +43,41 @@ void elevio_buttonLamp(int floor, ButtonType button, int value);
  */
 void elevio_floorIndicator(int floor);
 
-
+/**
+ * @brief Turns on the door open light
+ * 
+ * @param value ture or false
+ */
 void elevio_doorOpenLamp(int value);
 
+/**
+ * @brief Turns on the elevator stoped lamp
+ * 
+ * @param value 
+ */
 void elevio_stopLamp(int value);
 
+/**
+ * @brief a function that cheks if a cirtan butten is pushed 
+ * 
+ * @param floor 
+ * @param button 
+ * @return int 
+ */
 int elevio_callButton(int floor, ButtonType button);
+
+/**
+ * @brief cheks where the elevator is, in relation to the floors.
+ * 
+ * @return int 
+ */
 int elevio_floorSensor(void);
+
+/**
+ * @brief cheks is stop buttoon is pushed
+ * 
+ * @return int 
+ */
 int elevio_stopButton(void);
 int elevio_obstruction(void);
 
