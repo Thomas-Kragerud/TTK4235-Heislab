@@ -12,7 +12,9 @@ void queue_initialize_queue();
 
 void queue_update_queue();
 
-int que_not_empty();
+int queue_not_empty();
+
+int queue_find_entry();
 
 void queue_clear_row(int floor);
 

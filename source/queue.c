@@ -28,7 +28,7 @@ void queue_update_queue() {
 
 
 
-int que_not_empty(){
+int queue_not_empty(){
     for(int f = 0; f < NUMBER_OF_FLOORS; ++f){
         for(int b = 0; b < NUMBER_OF_BUTTONS; ++b){
             if(queue[f][b] != 0){
@@ -37,6 +37,18 @@ int que_not_empty(){
         }
     }
     return 0;
+}
+
+
+int queue_find_entry() {
+    for(int f = 0; f < NUMBER_OF_FLOORS; ++f){
+        for(int b = 0; b < NUMBER_OF_BUTTONS; ++b){
+            if(queue[f][b] == 1){
+                return f;
+            }
+        }
+    }
+    //return 0;
 }
 
 

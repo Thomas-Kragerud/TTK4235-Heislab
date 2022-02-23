@@ -1,15 +1,14 @@
 #include "fsm.h"
 
-
 state current_state = INIT;
 
-direction current_direction = DIRECTION_DOWN;
+direction current_direction = DIRECTION_TBT;
 
-direction previous_direction = DIRECTION_DOWN;
+direction previous_direction = DIRECTION_TBT;
 
-position current_position; //kan vær (-1)
+position current_position; // kan vær (-1)
 
-position newest_floor_position; //kan bare være (0,..,3)
+position newest_floor_position; // kan bare være (0,..,3)
 
 position previous_floor_position; // kan bare være (0, .., 3)
 
@@ -17,166 +16,194 @@ movement movement_room;
 
 position next_stop;
 
-
-
-
-void fsm_init(void) {
-    if(current_position != first) {
-            elevio_motorDirection(DIRN_DOWN);
-        } else {
-            elevio_motorDirection(DIRN_STOP);
-            current_direction = DIRECTION_UP; //trenger vi denne her?
-            movement_room.start = unknown;
-            //movement_room.newest_floor_position
-        }
+int fsm_init(void)
+{
+    if (current_position != first)
+    {
+        elevio_motorDirection(DIRN_DOWN);
+        return 0;
+    }
+    else
+    {
+        elevio_motorDirection(DIRN_STOP);
+        return 1;
+    }
 }
 
 //*********************************************************************
-//alt som har med movement room å gjøre 
-
-
-
-
-
-
-
+// alt som har med movement room å gjøre
 
 //*********************************************************************//
 
-// har ikke sett på imp
-void fsm_update_floor_position(){
+
+void fsm_update_floor_position()
+{
     current_position = elevio_floorSensor();
-    if (current_position != -1) {
+    if (current_position != -1)
+    {
         previous_floor_position = newest_floor_position;
         newest_floor_position = current_position;
     }
 }
 
-
-void fsm_update_light(){
+void fsm_update_light()
+{
     elevio_floorIndicator(newest_floor_position);
 }
 
-//[Pult] har ikke sett på imp
 
+void fsm_go_to(int next_stop)
+{
+    if (next_stop > newest_floor_position)
+    {
+        elevio_motorDirection(DIRN_UP);
+    }
+    if (next_stop < newest_floor_position)
+    {
+        elevio_motorDirection(DIRN_DOWN);
+    }
 
+}
 
-//[pult] har ikke sett på imp
-void fsm_go_to(int next_stop, int floor_indicator) {
-    if (next_stop != 5) {
-        if (next_stop > floor_indicator) {
-            elevio_motorDirection(DIRN_UP);
-        }
-        if (next_stop < floor_indicator) {
-            elevio_motorDirection(DIRN_DOWN);
-        }
-    } else {
-        elevio_motorDirection(DIRN_STOP);
+//finner retningen 
+void fsm_find_directon()
+{
+    next_stop = queue_find_entry();
+    if (next_stop > newest_floor_position)
+    {
+        current_direction = DIRECTION_UP;
+    }
+    else
+    {
+        current_direction = DIRECTION_DOWN;
     }
 }
 
+void fsm_search_beyond_next_stop()
+{
+    // hvis direction oppover, lop fra next_stop  og oppver, leter etter nedover-pil og kryss
+    if (current_direction == DIRECTION_UP)
+    {
+        for (int f = next_stop + 1; f < NUMBER_OF_FLOORS; ++f)
+        {
 
+            if (queue[f][1] == 1)
+            { // funnet en down
+                next_stop = f;
+            }
+            if (queue[f][2] == 1)
+            { // funnet en kryss
+                next_stop = f;
+            }
+        }
 
+        // hvis direction nedover, loop fra next_stop og nedover, leter etter oppover-pil og kryss
 
-//Helper functions implementation 
-direction fsm_find_direction(position stop, position start){
-    if(stop - start > 0){
-        return DIRECTION_UP;
-    } else { //in correct floor, send to door open
-            //function move in directon 
-            //ceck for updates if movement room
-            //Shrink movement room 
+        if (current_direction == DIRECTION_DOWN)
+        {
+            for (int f = 0; f < next_stop; ++f)
+            {
+                if (queue[f][0] == 1)
+                { // funnet en up
+                    next_stop = f;
+                }
 
-        return DIRECTION_DOWN;
+                if (queue[f][2] == 1)
+                { // funnet en kryss
+                    next_stop = f;
+                }
+            }
+        }
     }
 }
 
+int fsm_valid_stop()
+{
+    if (queue[newest_floor_position][current_direction] == 1 || queue[newest_floor_position][2] == 1)
+    {
+        return 1;
+    }
+    return 0;
+}
+
+// Main run fsm_search_beyond_next_stop
 
 
+void fsm_run()
+{
 
-
-
-
-
-
-
-//Main run 
-
-void fsm_run(){
-
-    //Updates for every run of loop 
-    fsm_update_floor_position(); //updated {current_position, newest_floor_position, previous_floor_position}
+    // Updates for every run of loop
+    fsm_update_floor_position(); // updated {current_position, newest_floor_position, previous_floor_position}
     fsm_update_light();
+    //printf("Current newest flore: %d\n",newest_floor_position);
 
-    switch(current_state) 
+    switch (current_state)
     {
 
-        case(INIT):
-            fsm_init();
-            current_state = IDLE;/
-            break;
 
-        case(IDLE):
-
-            queue_update_queue();
-
-            print_matrix(queue);
-
+    case (INIT):
+        if(fsm_init()){
+            current_state = IDLE;
             
-
-
-
-            //hvis ikke eksisterer noen Start Stop; Eller vi er på stop;
-
-                //her vi er nå Start, emergancy stop sletter køen men ikke hvor vi er.
-                //Siste opp lengst unna Stop
-                //fin directon mellom opp og ned
-    
-                //nermeste stop i riktig retning, floper herifra og i retning der jeg skal
-
-            //hvis eksisterer et bevegelse room.
-                //finn nærmeste neste stop og send til neste
-
-
-            if(que_not_empty()){
-                current_state = MOVING;
-            }
-
-            break;
+        }
         
-        case(MOVING):
-            queue_update_queue();
-            //Hvis vi er der vi skal være(ende stop)
-            if (newest_floor_position == next_stop) {
-                current_state = DOOR_OPEN;
-            }
+        break;
 
-            //Hvis ikke er bestemt 
-            if (current_direction == DIRECTION_TBT) {
-                //finn første entry i kø matrise
-            } 
+    case (IDLE):
+        queue_update_queue();
+        print_matrix(queue);
 
-            //hvis bestilling over - motsatt retning eller kryss, oppdater next_stop
-        
-            //Hvis bestilling inni samme retning.-> newest_floor_position har et kryss i kømatrisen eller retning retning samme retning- Kast opp  
-            
-            
+        if (queue_not_empty())
+        {
+            current_state = MOVING;
+        }
 
-            break;
+        break;
+
+    case (MOVING):
+
+        queue_update_queue();
+        // Hvis ikke er bestemt
+        if (current_direction == DIRECTION_TBT)
+        {
+            fsm_find_directon(); // gir også "første next_stop"
+        }
+
+        // Hvis vi er der vi skal være(ende stop) (et ende stopp, vurdering å sette direction til Undetirmand)
+        if (newest_floor_position == next_stop)
+        {
+            current_state = DOOR_OPEN;
+            current_direction = DIRECTION_TBT;
+        }
+
+        // hvis bestilling over - motsatt retning eller kryss, oppdater next_stop
+        fsm_search_beyond_next_stop();
+
+        // Hvis bestilling inni samme retning.-> newest_floor_position har et kryss i kømatrisen eller retning retning samme retning- Kast opp
+
+        if (fsm_valid_stop())
+        {
+            current_state = DOOR_OPEN;
+        }
+
+        fsm_go_to(next_stop);
 
 
 
-        case(DOOR_OPEN):
+        break;
 
-            queue_update_queue();
+    case (DOOR_OPEN):
+        queue_update_queue();
+        elevio_motorDirection(DIRN_STOP);
+        elevio_stopLamp(1);
+        printf("JEG var her");
+        queue_clear_row(newest_floor_position);
+        elevio_stopLamp(0);
+        current_state = IDLE;
 
-            //Vente i tre sek. 
-            //Slett etasen fra køeen
-            //om alt er nice luk døren og kast til idel 
-            break;
-
-        case(EMERGENCY_STOP):
-            break;
+        // Vente i tre sek.
+        // Slett etasen fra køeen
+        // om alt er nice luk døren og kast til idel
+        break;
     }
-
 }

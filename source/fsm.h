@@ -7,7 +7,7 @@
 
 typedef enum {INIT, IDLE, MOVING, DOOR_OPEN, EMERGENCY_STOP} state;
 
-typedef enum {DIRECTION_DOWN, DIRECTION_UP, DIRECTION_TBT} direction; //Trenger vi TBT
+typedef enum {DIRECTION_UP, DIRECTION_DOWN, DIRECTION_TBT} direction; //Trenger vi TBT
 
 typedef enum {unknown = -1, first = 0, second = 1, third = 2, fourth = 3} position;
 
@@ -27,19 +27,17 @@ extern direction current_direction;
 
 extern direction previous_direction;
 
+void fsm_find_directon();
 
-void fsm_update_movement_room();
+void fsm_search_beyond_next_stop();
 
-void fsm_movement_room_handler();
-
-
-
+int fsm_valid_stop();
 
 /**
  * @brief Initilize the elevator to a known state
  * 
  */
-void fsm_init(void);
+int fsm_init(void);
 
 /**
  * @brief Function that updates the last passed floor
@@ -55,13 +53,7 @@ void fsm_update_floor_position();
  */
 void fsm_update_light();
 
-/**
- * @brief Function that calculates the next floor
- * 
- * @param floor_indicator 
- * @return int 
- */
-int fsm_get_next_stop(int floor_indicator);
+
 
 /**
  * @brief Elevator goes to floor and stops
@@ -69,7 +61,7 @@ int fsm_get_next_stop(int floor_indicator);
  * @param next_stop 
  * @param floor_indicator 
  */
-void fsm_go_to(int next_stop, int floor_indicator);
+void fsm_go_to(int next_stop);
 
 
 /**
@@ -80,5 +72,3 @@ void fsm_run();
 
 
 //Helper functions
-
-direction fsm_find_direction(position stop, position start);

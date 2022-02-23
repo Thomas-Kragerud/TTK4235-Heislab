@@ -16,12 +16,11 @@ int timer_times_up(double seconds) {
     return 0;
 }
 
-int timer_sec(double seconds){
+void timer_sec(double seconds){
     struct timespec t;
     t.tv_sec = seconds;
     t.tv_nsec = 0;
     nanosleep(&t, NULL);
-    return 1;
 }
 
 
