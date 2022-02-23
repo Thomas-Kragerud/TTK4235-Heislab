@@ -187,9 +187,7 @@ void fsm_run()
         }
 
         fsm_go_to(next_stop);
-
-
-
+        
         break;
 
     case (DOOR_OPEN):

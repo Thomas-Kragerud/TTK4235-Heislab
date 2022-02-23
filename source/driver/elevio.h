@@ -27,7 +27,13 @@ void elevio_init(void);
  */
 void elevio_motorDirection(MotorDirection dirn);
 
-
+/**
+ * @brief Sets the lights on up and down on Floorpanel, and floors on elevator panel 
+ * 
+ * @param floor 
+ * @param button [hall up is 0]
+ * @param value 
+ */
 void elevio_buttonLamp(int floor, ButtonType button, int value);
 
 /**

@@ -21,6 +21,7 @@ void queue_update_queue() {
             int btnPressed = elevio_callButton(f,b);//f is floor and b is buttontype [up, down, hb]
             if(btnPressed == 1) {
                 queue[f][b] = btnPressed;
+                elevio_buttonLamp(f, b, 1);
             }
         }
     }
@@ -62,6 +63,8 @@ int queue_find_entry() {
 void queue_clear_row(int floor){
     for(int b = 0; b < NUMBER_OF_BUTTONS; ++b){
         queue[floor][b] = 0;
+        elevio_buttonLamp(floor, b, 0);
+
     }
 }
 
