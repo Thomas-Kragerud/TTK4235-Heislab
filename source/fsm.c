@@ -7,76 +7,61 @@ direction current_direction = DIRECTION_DOWN;
 
 direction previous_direction = DIRECTION_DOWN;
 
-position current_position;
+position current_position; //kan vær (-1)
+
+position newest_floor_position; //kan bare være (0,..,3)
+
+position previous_floor_position; // kan bare være (0, .., 3)
 
 movement movement_room;
+
+position next_stop;
 
 
 
 
 void fsm_init(void) {
-    if(current_position != 0) {
+    if(current_position != first) {
             elevio_motorDirection(DIRN_DOWN);
         } else {
             elevio_motorDirection(DIRN_STOP);
-            current_direction = DIRECTION_UP;
-            current_state = IDLE;
+            current_direction = DIRECTION_UP; //trenger vi denne her?
+            movement_room.start = unknown;
+            //movement_room.newest_floor_position
         }
 }
 
+//*********************************************************************
+//alt som har med movement room å gjøre 
 
-void fsm_update_movement_room(){
-    for(int f = 0; f < NUMBER_OF_FLOORS; ++f){
-        for(int b = 0; b < NUMBER_OF_BUTTONS; ++b){
-            if(queue[f][b] != 0){
 
-                //if finds new entry the first time.
-                movement_room.stop = f;
-                movement_room.next_stop = f;
-                movement_room.start = current_position;
-            }
-        }
+
+
+
+
+
+
+//*********************************************************************//
+
+// har ikke sett på imp
+void fsm_update_floor_position(){
+    current_position = elevio_floorSensor();
+    if (current_position != -1) {
+        previous_floor_position = newest_floor_position;
+        newest_floor_position = current_position;
     }
 }
 
-int fsm_get_floor_indicator(int current_position) {
-    int floor_indicator = 0;
-    if (current_position != -1 && current_position != floor_indicator) {
-        floor_indicator = current_position;
-    }
-    return floor_indicator;
+
+void fsm_update_light(){
+    elevio_floorIndicator(newest_floor_position);
 }
 
-void fsm_update_light(int floor_indicator){
-    elevio_floorIndicator(floor_indicator);
-}
+//[Pult] har ikke sett på imp
 
-int fsm_get_next_stop(int floor_indicator){
-    int next_stop = 5;
 
-    if(current_direction == DIRECTION_UP) {
-        for (int i = floor_indicator; i < NUMBER_OF_FLOORS; ++i) {
-            for (int j = 0; j < NUMBER_OF_BUTTONS; ++j) {
-                if ((queue[i][j] == 1) && (i > floor_indicator) && i != next_stop && (abs(i-floor_indicator) < abs(next_stop-floor_indicator))) {
-                    next_stop = i;
-                }
-            }
-        }
-    }
 
-    if(current_direction == DIRECTION_DOWN) {
-        for (int i = 0; i < floor_indicator; ++i) {
-            for (int j = 0; j < NUMBER_OF_BUTTONS; ++j) {
-                if ((queue[i][j] == 1) && (i < floor_indicator) && i != next_stop && (abs(i-floor_indicator) < abs(next_stop-floor_indicator))) {
-                    next_stop = i;
-                }
-            }
-        }
-    }
-
-    return next_stop;
-}
-
+//[pult] har ikke sett på imp
 void fsm_go_to(int next_stop, int floor_indicator) {
     if (next_stop != 5) {
         if (next_stop > floor_indicator) {
@@ -91,73 +76,107 @@ void fsm_go_to(int next_stop, int floor_indicator) {
 }
 
 
-void fsm_clear_orders_on_floor(int floor) {
-    for (int i = 0; i < NUMBER_OF_BUTTONS; ++i) {
-        queue[floor][i] = 0;
-    } 
+
+
+//Helper functions implementation 
+direction fsm_find_direction(position stop, position start){
+    if(stop - start > 0){
+        return DIRECTION_UP;
+    } else { //in correct floor, send to door open
+            //function move in directon 
+            //ceck for updates if movement room
+            //Shrink movement room 
+
+        return DIRECTION_DOWN;
+    }
 }
 
+
+
+
+
+
+
+
+
+
+//Main run 
 
 void fsm_run(){
 
     //Updates for every run of loop 
-    current_position = elevio_floorSensor();
-    fsm_update_light(fsm_get_floor_indicator(current_position));
+    fsm_update_floor_position(); //updated {current_position, newest_floor_position, previous_floor_position}
+    fsm_update_light();
 
     switch(current_state) 
     {
 
         case(INIT):
             fsm_init();
+            current_state = IDLE;/
             break;
 
         case(IDLE):
+
             queue_update_queue();
+
             print_matrix(queue);
+
+            
+
+
+
+            //hvis ikke eksisterer noen Start Stop; Eller vi er på stop;
+
+                //her vi er nå Start, emergancy stop sletter køen men ikke hvor vi er.
+                //Siste opp lengst unna Stop
+                //fin directon mellom opp og ned
+    
+                //nermeste stop i riktig retning, floper herifra og i retning der jeg skal
+
+            //hvis eksisterer et bevegelse room.
+                //finn nærmeste neste stop og send til neste
+
+
             if(que_not_empty()){
                 current_state = MOVING;
             }
-            /**
-
-            int floor_indicator = fsm_get_floor_indicator(current_position);
-            int next_stop = fsm_get_next_stop(floor_indicator);
-
-            fsm_go_to(next_stop, floor_indicator);
-
-            if (next_stop == floor_indicator) {
-                elevio_motorDirection(DIRN_STOP);
-                fsm_clear_orders_on_floor(next_stop);
-                current_state = DOOR_OPEN;
-            }
-            printf("%d", next_stop);
-            printf("%d\n", floor_indicator);
-            **/
 
             break;
         
         case(MOVING):
-            int floor_indicator = fsm_get_floor_indicator(current_position);
-            int next_stop = fsm_get_next_stop(floor_indicator);
-
-            fsm_go_to(next_stop, floor_indicator);
-
-            if (next_stop == floor_indicator) {
-                elevio_motorDirection(DIRN_STOP);
-                fsm_clear_orders_on_floor(next_stop);
+            queue_update_queue();
+            //Hvis vi er der vi skal være(ende stop)
+            if (newest_floor_position == next_stop) {
                 current_state = DOOR_OPEN;
             }
-            printf("%d", next_stop);
-            printf("%d\n", floor_indicator);
+
+            //Hvis ikke er bestemt 
+            if (current_direction == DIRECTION_TBT) {
+                //finn første entry i kø matrise
+            } 
+
+            //hvis bestilling over - motsatt retning eller kryss, oppdater next_stop
+        
+            //Hvis bestilling inni samme retning.-> newest_floor_position har et kryss i kømatrisen eller retning retning samme retning- Kast opp  
+            
+            
 
             break;
 
 
 
         case(DOOR_OPEN):
-        while(1) {
-            int a = 1;
-        }
-        break;
+
+            queue_update_queue();
+
+            //Vente i tre sek. 
+            //Slett etasen fra køeen
+            //om alt er nice luk døren og kast til idel 
+            break;
+
+        case(EMERGENCY_STOP):
+            break;
     }
 
 }

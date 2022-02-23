@@ -14,6 +14,6 @@ void queue_update_queue();
 
 int que_not_empty();
 
-void queue_clear_row(int row);
+void queue_clear_row(int floor);
 
 void queue_clear_all();

@@ -47,9 +47,9 @@ int que_not_empty(){
 
 //Helper functions implementation 
 
-void queue_clear_row(int row){
+void queue_clear_row(int floor){
     for(int b = 0; b < NUMBER_OF_BUTTONS; ++b){
-        queue[row][b] = 0;
+        queue[floor][b] = 0;
     }
 }
 
@@ -58,6 +58,3 @@ void queue_clear_all(){
     queue_initialize_queue(); // heftig unødvendig :))
 }
 
-void queue_init_movement_room(){
-    
-}
