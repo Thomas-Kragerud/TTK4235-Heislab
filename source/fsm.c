@@ -198,8 +198,16 @@ void fsm_run()
         elevio_stopLamp(1);
         printf("JEG var her");
         queue_clear_row(newest_floor_position);
-        elevio_stopLamp(0);
-        current_state = IDLE;
+        timer_start();
+        if(timer_times_up(3)){
+            current_state = IDLE;
+            elevio_stopLamp(0);
+        }
+
+    
+        //timer_sec(3);//denne lytter ikke mens, eller hvis jeg leter i main?
+        
+        
 
         // Vente i tre sek.
         // Slett etasen fra køeen

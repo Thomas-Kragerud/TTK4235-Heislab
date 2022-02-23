@@ -4,6 +4,7 @@
 #include "driver/elevio.h"
 #include "queue.h"
 #include "util.h"
+#include "timer.h"
 
 typedef enum {INIT, IDLE, MOVING, DOOR_OPEN, EMERGENCY_STOP} state;
 

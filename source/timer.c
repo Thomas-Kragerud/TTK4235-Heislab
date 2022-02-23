@@ -1,16 +1,24 @@
 #include "timer.h"
-#include <time.h>
 
 
-time_t time_counter;
+
+static time_t time_counter = -1;
+static time_t time_checker = -1;
 
 void timer_start() {
-    time_counter = time(NULL);
+    if(time_counter == -1){
+        time_counter = time(NULL);
+    }
 }
 
 int timer_times_up(double seconds) {
-    time_t time_checker = time(NULL);
+    time_checker = time(NULL);
+    if(time_checker == -1){
+        time_checker = time(NULL);
+    }
     if (seconds < difftime(time_checker, time_counter)) {
+        time_counter = -1;
+        time_checker = -1;
         return 1;
     }
     return 0;
