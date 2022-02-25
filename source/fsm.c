@@ -16,7 +16,7 @@ movement movement_room;
 
 position next_stop;
 
-int joker = 0;
+int off = 0;
 
 int fsm_init(void)
 {
@@ -150,27 +150,6 @@ int fsm_valid_stop()
 void fsm_run()
 {
     
-    if (current_direction == DIRECTION_DOWN) {
-        printf("GOING DOWN");
-    }
-    if (current_direction == DIRECTION_UP) {
-        printf("GOING UP");
-    }
-    if (current_state == IDLE) {
-        printf("IDLE");
-    }
-    if (current_state == MOVING) {
-        printf("MOVING");
-    }
-    if (current_state == DOOR_OPEN) {
-        printf("DOOR OPEN");
-    }
-    if (current_state == EMERGENCY_STOP) {
-        printf("EMERGENCY_STOP");
-    }
-    
-
-    printf("%d\n", next_stop);
 
     // Updates for every run of loop
     fsm_update_floor_position(); // updated {current_position, newest_floor_position, previous_floor_position}
@@ -246,7 +225,8 @@ void fsm_run()
         printf("Door open\n");
         queue_clear_row(newest_floor_position);
 
-        timer_start();
+        timer_start(0);
+        if(elevio_obstruction()){timer_start(1);} //restarter timer hvis obstruction knappen er trykket
 
         //Denne funker ikke helt som den skal -oskar
         if(timer_times_up(2) && !elevio_obstruction()){ //timer_times_up(3) bruker 4 sekunder..
@@ -279,16 +259,39 @@ void fsm_run()
                 current_state = DOOR_OPEN;
             } else {
                 printf("Door open\n");
+                elevio_doorOpenLamp(1);
             }      //Eneste som suger er at stoppknappen dimmer...
         } else{
 
-            while(elevio_stopButton()){}
-            current_state = IDLE;
-            elevio_stopLamp(0);
+
+            if(!elevio_stopButton()) {
+                elevio_stopLamp(0);
+                current_state = IDLE;
+            }
+        }
+
+        if (elevio_stopButton()) {
+            timer_start(0);
+            if (timer_times_up(5)) {
+                current_state = OFF;
+            }
         }
 
         break;
+
+    case(OFF):
+
+        elevio_doorOpenLamp(0);
+        elevio_floorIndicator(0);
+        elevio_stopLamp(0);
+        off = 1;
+
+        break;
+
+
     }
+
+    
 }
 
 

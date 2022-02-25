@@ -6,7 +6,7 @@
 #include "util.h"
 #include "timer.h"
 
-typedef enum {INIT, IDLE, MOVING, DOOR_OPEN, EMERGENCY_STOP} state;
+typedef enum {INIT, IDLE, MOVING, DOOR_OPEN, EMERGENCY_STOP, OFF} state;
 
 typedef enum {DIRECTION_UP, DIRECTION_DOWN, DIRECTION_TBT} direction; //Trenger vi TBT
 
@@ -27,6 +27,8 @@ extern state current_state;
 extern direction current_direction;
 
 extern direction previous_direction;
+
+extern int off;
 
 void fsm_find_directon();
 

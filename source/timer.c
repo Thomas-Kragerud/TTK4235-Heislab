@@ -5,8 +5,8 @@
 static time_t time_counter = -1;
 static time_t time_checker = -1;
 
-void timer_start() {
-    if(time_counter == -1){
+void timer_start(int restart) {
+    if(time_counter == -1 || restart){
         time_counter = time(NULL);
     }
 }
@@ -23,13 +23,5 @@ int timer_times_up(double seconds) {
     }
     return 0;
 }
-
-void timer_sec(double seconds){
-    struct timespec t;
-    t.tv_sec = seconds;
-    t.tv_nsec = 0;
-    nanosleep(&t, NULL);
-}
-
 
 
